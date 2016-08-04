@@ -32,8 +32,14 @@ public class Main {
 
     get("/chat", (req, res) -> messages);
     get("/chat-post", (req, res) -> {
-      messages += res.getParameter("message") + ":";
-    });
+            Map<String, Object> attributes = new HashMap<>();
+            String message = res.getParameter("message");
+            attributes.put("message", message);
+            
+            messages += message + ":";
+
+            return new ModelAndView(attributes, "index.ftl");
+        }, new FreeMarkerEngine());
     
     get("/db", (req, res) -> {
       Connection connection = null;
