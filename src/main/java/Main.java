@@ -44,6 +44,9 @@ public class Main {
             Map<String, Object> attributes = new HashMap<>();
             attributes.put("message", "Hello World!");
 
+            String message = request.getParameter("message");
+            messages += message + ":";
+            
             return new ModelAndView(attributes, "index.ftl");
         }, new FreeMarkerEngine());
         
