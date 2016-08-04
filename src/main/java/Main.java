@@ -31,7 +31,9 @@ public class Main {
         }, new FreeMarkerEngine());
 
     get("/chat", (req, res) -> messages);
-    post("/chat", (req, res) -> messages);
+    get("/chat-post", (req, res) -> {
+      messages += res.getParameter("message") + ":";
+    });
     
     get("/db", (req, res) -> {
       Connection connection = null;
