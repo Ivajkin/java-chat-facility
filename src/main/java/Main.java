@@ -14,6 +14,7 @@ import static spark.Spark.get;
 import com.heroku.sdk.jdbc.DatabaseUrl;
 
 public class Main {
+  static String messages = "TEST";
 
   public static void main(String[] args) {
 
@@ -29,6 +30,9 @@ public class Main {
             return new ModelAndView(attributes, "index.ftl");
         }, new FreeMarkerEngine());
 
+    get("/chat", (req, res) -> messages);
+    post("/chat", (req, res) -> messages);
+    
     get("/db", (req, res) -> {
       Connection connection = null;
       Map<String, Object> attributes = new HashMap<>();
