@@ -14,7 +14,6 @@ import static spark.Spark.get;
 import com.heroku.sdk.jdbc.DatabaseUrl;
 
 public class Main {
-  static String messages = "TEST";
 
   public static void main(String[] args) {
 
@@ -48,13 +47,13 @@ public class Main {
         connection = DatabaseUrl.extract().getConnection();
 
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-        stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-        ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
+        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS messages (message varchar)");
+        stmt.executeUpdate("INSERT INTO messages VALUES (\"new message 1111.\")");
+        ResultSet rs = stmt.executeQuery("SELECT message FROM messages");
 
         ArrayList<String> output = new ArrayList<String>();
         while (rs.next()) {
-          output.add( "Read from DB: " + rs.getTimestamp("tick"));
+          output.add( "Read from DB: " + rs.getString("message"));
         }
 
         attributes.put("results", output);
